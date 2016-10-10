@@ -1,0 +1,51 @@
+case ktsch(1).
+
+when 'A'.
+  case 下一道工序的第一位.
+    when 'D'.
+	染廠.
+    when 'F'.
+	整理廠.
+    when 'P'.
+	印花廠.
+    when 'K'.
+	緯編織廠
+    when 'W'.
+	經編織廠.
+  endcase.  
+
+when 'D'.
+  case ktsch.
+    when 'D060' or 'D070' or 'D140'.
+      if 中檢對色結果 <> xxxx
+        染廠.
+      else if 中檢對色結果 = xxxx.
+	整理廠.
+      endif.
+    when 'D020'.
+      if PCNF.
+        染廠.
+      elseif CNF.
+	整理廠.
+      endif.
+    when other.
+      染廠.
+    endcase.
+
+when 'F'.
+  if ktsch = 'F570' or ktsch = 'F580'.
+    QC
+  else.
+    整理廠.
+  endif.
+
+when 'P'.
+  印花廠.
+
+when 'K'.
+  緯編織廠.
+
+when 'W'.
+  經編織廠.
+
+endcase.
